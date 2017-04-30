@@ -9,10 +9,11 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>FileManager.BL</RootNamespace>
     <AssemblyName>FileManager.BL</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -22,6 +23,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -72,6 +74,7 @@
       <HintPath>..\packages\Nito.AsyncEx.4.0.1\lib\net45\Nito.AsyncEx.Enlightenment.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Net" />
@@ -96,6 +99,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Windows" />
+    <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -116,9 +120,15 @@
     <Compile Include="BytesBuffer.cs" />
     <Compile Include="FileManagerBLContainerExtension.cs" />
     <Compile Include="Interfaces\IBytesBuffer.cs" />
-    <Compile Include="Interfaces\ISuspendable.cs" />
+    <Compile Include="Interfaces\ISuspendableWorker.cs" />
     <Compile Include="Interfaces\IThreadsController.cs" />
+    <Compile Include="Interfaces\Reactive\IDispatcherProvider.cs" />
     <Compile Include="Interfaces\Unity\IFactory.cs" />
+    <Compile Include="Reactive\CurrentDispatcherProvider.cs" />
+    <Compile Include="Reactive\Dispatchers.cs" />
+    <Compile Include="Reactive\NewThreadDispatcherProvider.cs" />
+    <Compile Include="Workers\Result.cs" />
+    <Compile Include="Workers\ResultDto.cs" />
     <Compile Include="ThreadsController.cs" />
     <Compile Include="Unity\Factory.cs" />
     <Compile Include="Workers\FileReader.cs" />

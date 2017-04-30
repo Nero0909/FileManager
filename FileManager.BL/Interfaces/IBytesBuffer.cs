@@ -19,5 +19,9 @@ namespace FileManager.BL.Interfaces
         void CompleteAdding();
 
         void Reset(int bufferSize, int bunchSize);
+
+        void Reset(int bufferSize);
+
+        void Clear();
     }
 }

@@ -5,6 +5,8 @@ namespace FileManager.BL.Interfaces
 {
     public interface IThreadsController
     {
+        void StartReadAndWrite(string srcPath, string destPath, int bufferSize);
+
         void Cancel();
 
         void PauseWriting();
@@ -15,12 +17,14 @@ namespace FileManager.BL.Interfaces
 
         void ResumeReading();
 
-        IObservable<int> CurrentBufferSize { get; }
+        IObservable<double> CurrentBufferSize { get; }
 
         IObservable<double> Progress { get; }
 
         IObservable<WorkerState> ReaderState { get; }
 
         IObservable<WorkerState> WriterState { get; }
+
+        IObservable<ResultDto> Result { get; }
     }
 }

@@ -2,7 +2,7 @@
 
 namespace FileManager.BL.Interfaces.Workers
 {
-    public interface IFileWriter : ISuspendable
+    public interface IFileWriter : ISuspendableWorker
     {
         IConnectableObservable<int> GetWriteBytesStream(string path);
     }

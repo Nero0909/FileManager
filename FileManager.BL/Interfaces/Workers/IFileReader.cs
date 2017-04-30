@@ -2,7 +2,7 @@
 
 namespace FileManager.BL.Interfaces.Workers
 {
-    public interface IFileReader : ISuspendable
+    public interface IFileReader : ISuspendableWorker
     {
         IConnectableObservable<int> GetReadBytesStream(string path);
     }

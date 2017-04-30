@@ -9,14 +9,17 @@ namespace FileManager.BL
 {
     internal sealed class BytesBuffer : IBytesBuffer
     {
+        private const int PageSize = 4 * 1024;
+        private const int GCThreshold = 100 * 1024 * 1024; //100MB
+
         private AsyncCollection<int> _emptySegments;
         private AsyncCollection<int> _filledSegments;
         private Dictionary<int, int> _offsetSize;
         private byte[] _buffer;
 
-        public BytesBuffer(int bufferSize, int bunchSize)
+        public BytesBuffer(int bufferSize)
         {
-            Reset(bufferSize, bunchSize);
+            Reset(bufferSize);
         }
 
         public void Reset(int bufferSize, int bunchSize)
@@ -27,6 +30,26 @@ namespace FileManager.BL
             _filledSegments = new AsyncCollection<int>(_offsetSize.Keys.Count);
 
             InitializeEmptySegments();
+        }
+
+        public void Reset(int bufferSize)
+        {
+            Reset(bufferSize, PageSize);
+        }
+
+        public void Clear()
+        {
+            var bufferSize = _buffer.Length;
+
+            _buffer = null;
+            _offsetSize = null;
+            _emptySegments = null;
+            _filledSegments = null;
+
+            if (bufferSize >= GCThreshold)
+            {
+                GC.Collect();
+            }
         }
 
         public async Task<ArraySegment<byte>> GetEmptySegmentAsync(CancellationToken token)

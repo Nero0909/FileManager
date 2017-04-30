@@ -41,7 +41,6 @@ namespace FileManager.BL.Workers
                     while (await Buffer.OutputAvailableAsync(CancellationTokenSource.Token))
                     {
                         await PauseTokenSource.Token.WaitWhilePausedAsync(CancellationTokenSource.Token);
-
                         var segment = await Buffer.GetFilledSegmentAsync(CancellationTokenSource.Token);
 
                         await fs.WriteAsync(segment.Array, segment.Offset, segment.Count, CancellationTokenSource.Token);

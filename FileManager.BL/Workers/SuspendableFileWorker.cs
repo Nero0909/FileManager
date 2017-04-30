@@ -8,12 +8,13 @@ using Nito.AsyncEx;
 
 namespace FileManager.BL.Workers
 {
-    internal abstract class SuspendableFileWorker : ISuspendable
+    internal abstract class SuspendableFileWorker : ISuspendableWorker
     {
         protected IBytesBuffer Buffer;
         protected CancellationTokenSource CancellationTokenSource;
         protected PauseTokenSource PauseTokenSource;
         private readonly BehaviorSubject<WorkerState> _currentStateObs;
+        private readonly AsyncSubject<ResultDto> _result;
         protected IFile FileWrapper;
 
         protected SuspendableFileWorker(IBytesBuffer buffer, IFile fileWrapper, CancellationTokenSource cancellationTokenSource)
@@ -24,6 +25,7 @@ namespace FileManager.BL.Workers
 
             PauseTokenSource = new PauseTokenSource();
             _currentStateObs = new BehaviorSubject<WorkerState>(WorkerState.Unstarted);
+            _result = new AsyncSubject<ResultDto>();
         }
 
         public void Pause()
@@ -61,8 +63,22 @@ namespace FileManager.BL.Workers
                 .IgnoreElements()
                 .Subscribe(
                     _ => { },
-                    _ => _currentStateObs.OnNext(WorkerState.Stopped),
-                    () => _currentStateObs.OnNext(WorkerState.Stopped));
+                    ex =>
+                    {
+                        _currentStateObs.OnNext(WorkerState.Stopped);
+                        _result.OnNext(new ResultDto(Workers.Result.Error, ex));
+                        _result.OnCompleted();
+                    },
+                    () =>
+                    {
+                        _currentStateObs.OnNext(WorkerState.Stopped);
+                       var result = CancellationTokenSource.Token.IsCancellationRequested
+                            ? new ResultDto(Workers.Result.Canceled)
+                            : new ResultDto(Workers.Result.Successfully);
+
+                        _result.OnNext(result);
+                        _result.OnCompleted();
+                    });
 
             return subscription;
         }
@@ -70,5 +86,7 @@ namespace FileManager.BL.Workers
         protected abstract IObservable<int> DoWorkInternal(string filePath); 
 
         public IObservable<WorkerState> CurrentState => _currentStateObs.DistinctUntilChanged();
+
+        public IObservable<ResultDto> Result => _result;
     }
 }
