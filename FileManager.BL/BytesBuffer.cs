@@ -7,7 +7,7 @@ using Nito.AsyncEx;
 
 namespace FileManager.BL
 {
-    internal sealed class BytesBuffer : IBytesBuffer
+    public sealed class BytesBuffer : IBytesBuffer
     {
         private const int PageSize = 4 * 1024;
         private const int GCThreshold = 100 * 1024 * 1024; //100MB

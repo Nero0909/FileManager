@@ -39,7 +39,7 @@
                     Grid.Column="1"
                     Margin="10"
                     Command="{Binding SelectSourceFileCommand}"
-                    Content="Select file" />
+                    Content="Source file" />
                 <TextBox
                     x:Name="DestFolder"
                     Grid.Row="1"
@@ -53,7 +53,7 @@
                     Grid.Column="1"
                     Margin="10"
                     Command="{Binding SelectDestinationFolderCommand}"
-                    Content="Select directory" />
+                    Content="Destination directory" />
             </Grid>
             <Grid>
                 <Grid.RowDefinitions>

@@ -8,6 +8,7 @@
     xmlns:view="clr-namespace:FileManager.Client.View"
     Title="MVVM Light Application"
     DataContext="{Binding Main, Source={StaticResource Locator}}"
+    ResizeMode="CanMinimize"
     SizeToContent="WidthAndHeight"
     mc:Ignorable="d ignore">
 
@@ -15,7 +16,7 @@
         <Grid.RowDefinitions>
             <RowDefinition />
             <RowDefinition />
-            <RowDefinition />
+            <RowDefinition MaxHeight="70" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition />

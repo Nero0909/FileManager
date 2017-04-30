@@ -55,7 +55,7 @@
             MaxHeight="25"
             Margin="5"
             Command="{Binding PauseReading}"
-            Content="PauseReading" />
+            Content="Pause reading" />
         <Button
             x:Name="ResumeReadingBtn"
             Grid.Row="0"
@@ -63,7 +63,7 @@
             MaxHeight="25"
             Margin="5"
             Command="{Binding ResumeReading}"
-            Content="ResumeReading" />
+            Content="Resume reading" />
         <Button
             x:Name="PauseWritingBtn"
             Grid.Row="1"
