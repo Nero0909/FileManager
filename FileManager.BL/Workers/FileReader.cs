@@ -10,7 +10,7 @@ using FileManager.BL.Reactive;
 
 namespace FileManager.BL.Workers
 {
-    internal sealed class FileReader : SuspendableFileWorker, IFileReader
+    public sealed class FileReader : SuspendableFileWorker, IFileReader
     {
         public FileReader(IBytesBuffer buffer, IFile fileWrapper, CancellationTokenSource cancellationTokenSource)
             : base(buffer, fileWrapper, cancellationTokenSource)

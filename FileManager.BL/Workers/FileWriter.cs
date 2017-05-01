@@ -10,9 +10,7 @@ using FileManager.BL.Reactive;
 
 namespace FileManager.BL.Workers
 {
-    using IStream = SystemInterface.IO.IStream;
-
-    internal sealed class FileWriter : SuspendableFileWorker, IFileWriter
+    public sealed class FileWriter : SuspendableFileWorker, IFileWriter
     {
         public FileWriter(
             IBytesBuffer buffer, 

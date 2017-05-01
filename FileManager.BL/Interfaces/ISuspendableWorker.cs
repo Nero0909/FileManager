@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reactive.Subjects;
 using FileManager.BL.Workers;
 
 namespace FileManager.BL.Interfaces
@@ -10,6 +11,8 @@ namespace FileManager.BL.Interfaces
         void Resume();
 
         void Cancel();
+
+        IConnectableObservable<int> DoWork(string filePath);
 
         IObservable<WorkerState> CurrentState { get; }
 

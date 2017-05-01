@@ -8,7 +8,7 @@ using Nito.AsyncEx;
 
 namespace FileManager.BL.Workers
 {
-    internal abstract class SuspendableFileWorker : ISuspendableWorker
+    public abstract class SuspendableFileWorker : ISuspendableWorker
     {
         protected IBytesBuffer Buffer;
         protected CancellationTokenSource CancellationTokenSource;
@@ -50,7 +50,7 @@ namespace FileManager.BL.Workers
             _currentStateObs.OnNext(WorkerState.Stopped);
         }
 
-        protected IConnectableObservable<int> DoWork(string filePath)
+        public IConnectableObservable<int> DoWork(string filePath)
         {
             var subscription = DoWorkInternal(filePath).Publish();
 
